@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ArticulosActivity$PlaceholderFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/cuerpo"
+        android:focusableInTouchMode="true"
+        android:background="#ffefe2e2"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_articulos"
+            android:clickable="false"
+            android:headerDividersEnabled="true" />
+    </LinearLayout>
+
+</LinearLayout>

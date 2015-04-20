@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lv_nro_ped"
+        android:paddingLeft="10dp"
+        android:textColor="@color/list_textcolor">
+    </TextView>
+
+    <TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lv_tienda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lv_nro_ped"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:textColor="@color/list_textcolor" />
+
+    <TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lv_estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:text="E"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/list_textcolor_estado"
+        android:paddingRight="10dp" />
+
+
+</RelativeLayout>
