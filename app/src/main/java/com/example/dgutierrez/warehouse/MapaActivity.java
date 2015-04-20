@@ -72,11 +72,11 @@ public class MapaActivity extends ActionBarActivity {
         private String numPedido;
         GridView gridView;
         static final Bloque[] bloques = new Bloque[]
-                {new Bloque("","N",1),new Bloque("A","N",2),new Bloque("B","N",3),new Bloque("C","N",4),
-                        new Bloque("W","N",4),new Bloque("","N",5),new Bloque("","N",6),new Bloque("","N",7),
-                        new Bloque("X","N",8),new Bloque("","N",9),new Bloque("","N",10),new Bloque("","N",11),
-                        new Bloque("Y","N",12),new Bloque("","N",13),new Bloque("","N",14),new Bloque("","N",15),
-                        new Bloque("Z","N",16),new Bloque("","N",17),new Bloque("","N",18),new Bloque("","N",19)};
+                {new Bloque("","N",1,""),new Bloque("A","N",2,""),new Bloque("B","N",3,""),new Bloque("C","N",4,""),
+                        new Bloque("W","N",5,""),new Bloque("","N",6,"1"),new Bloque("","N",7,"2"),new Bloque("","N",8,"3"),
+                        new Bloque("X","N",9,""),new Bloque("","N",10,"4"),new Bloque("","N",11,"5"),new Bloque("","N",12,"6"),
+                        new Bloque("Y","N",13,""),new Bloque("","N",14,"7"),new Bloque("","N",15,"8"),new Bloque("","N",16,"9"),
+                        new Bloque("Z","N",17,""),new Bloque("","N",18,"10"),new Bloque("","N",19,"11"),new Bloque("","N",20,"12")};
 
         public PlaceholderFragment() {
         }
@@ -104,7 +104,7 @@ public class MapaActivity extends ActionBarActivity {
 
 
             String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            TextView detailsText = (TextView)rootView.findViewById(R.id.title_pedido);
+            TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
 
             numPedido = result;
 
@@ -118,13 +118,13 @@ public class MapaActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
 
-                    //Toast.makeText(
-                    //        getApplicationContext(),
-                    //        ((TextView) v.findViewById(R.id.label)).getText(), Toast.LENGTH_SHORT).show();
-
                     final Intent intent = new Intent(v.getContext(), ArticulosActivity.class);
-                 //   intent.putExtra("NRO_PED", "2345");
-                 //   intent.putExtra("NRO_MOD", "5");
+
+                    Bundle extras = new Bundle();
+                    extras.putString("NRO_PED",numPedido);
+                    extras.putString("NRO_MOD",bloques[position].getNro());
+                    intent.putExtras(extras);
+
                     startActivity(intent);
 
                 }
@@ -161,10 +161,12 @@ public class MapaActivity extends ActionBarActivity {
                     {
                         break;
                     }
+                    String aux[] = result.trim().split("\\|");
+
                     orden++;
-                    double pos = Double.parseDouble(result);
+                    double pos = Double.parseDouble(aux[0]);
                     int posMapa = (int)(3.0 + Math.ceil(pos / 3.0) + pos);
-                    bloques[posMapa] = new Bloque(Integer.toString(orden),"S",posMapa);
+                    bloques[posMapa] = new Bloque(Integer.toString(orden),aux[1],posMapa,aux[0]);
 
                     Log.v(LOG_TAG,"ESTO "+result);
                 }
@@ -178,7 +180,7 @@ public class MapaActivity extends ActionBarActivity {
                 for (int i = 1; i < 13; i++) {
                     double pos = (double)(i);
                     int posMapa = (int)(3.0 + Math.ceil(pos / 3.0) + pos);
-                    bloques[posMapa] = new Bloque("","N",i);
+                    bloques[posMapa] = new Bloque("","N",i,Integer.toString(i));
                 }
             }
         }

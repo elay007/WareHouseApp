@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -70,17 +73,63 @@ public class ArticulosActivity extends ActionBarActivity {
         ListView listArticulos;
         private ArrayList<Articulo> articulos;
         private static final String LOG_TAG = PlaceholderFragment.class.getSimpleName();
+        String nro_ped,nro_bloque;
+        View rootView;
+        ArticuloAdapter articulo;
+        ImageButton boton_guardar;
 
         public PlaceholderFragment() {
         }
+        private void rellenarArticulos() {
+
+            articulos.add(new Articulo("8534987",5,10,3,3));
+            articulos.add(new Articulo("8266945",5,15,3,3));
+            articulos.add(new Articulo("8539984",5,5,3,3));
+            articulos.add(new Articulo("7105970",5,3,4,3));
+            articulos.add(new Articulo("7105971",5,3,4,3));
+        }
 
         public void updateResults() {
-            //String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            //numPedido = result;
+
+            Bundle extras = getActivity().getIntent().getExtras();
+
+            nro_ped = extras.getString("NRO_PED");
+            nro_bloque = extras.getString("NRO_MOD");
+
             GetResultTask task = new GetResultTask();
 
             task.execute();
 
+        }
+
+
+        public boolean validarDespacho()
+        {
+            for (int i = 0; i < articulos.size(); i++)
+            {
+                if (articulos.get(i).getCant_desp()>articulos.get(i).getCant_ped())
+                {
+
+                    Toast.makeText(getActivity(),"La cantidad despachada en  " + articulos.get(i).getPk_articulo() + " es mayor a la cantidad pedida!", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+
+        public boolean guardarDespacho()
+        {
+            for (int i = 0; i < articulos.size(); i++)
+            {
+//                Toast.makeText(getActivity(),articulos.get(i).getPk_articulo(), Toast.LENGTH_SHORT).show();
+
+                new MyAsyncTask(getActivity())
+                        .execute("POST", nro_ped, nro_bloque,articulos.get(i).getPk_articulo(),Integer.toString(articulos.get(i).getCant_desp()));
+
+            }
+            return true;
         }
 
         @Override
@@ -88,38 +137,50 @@ public class ArticulosActivity extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             Log.v(LOG_TAG, "ESTO CREATE FRAGMENT");
             updateResults();
+
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_articulos, container, false);
+            rootView = inflater.inflate(R.layout.fragment_articulos, container, false);
 
             articulos = new ArrayList<Articulo>();
 
-            //rellenarArticulos();
+          //  rellenarArticulos();
 
 
             listArticulos = (ListView) rootView.findViewById(R.id.result_articulos);
 
+         //   listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos, rootView));
 
-/*
-            listArticulos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View v,
-                                        int position, long id) {
+            boton_guardar = (ImageButton) rootView.findViewById(R.id.btn_guardar);
 
+            boton_guardar.setOnClickListener(new View.OnClickListener() {
 
-                    final Intent intent = new Intent(getActivity(), MapaActivity.class);
-                    //intent.putExtra(TestConstants.SELCTED_SCENE_KEY, position);
+                @Override
+                public void onClick(View v) {
 
-                    intent.putExtra(Intent.EXTRA_TEXT, Integer.toString(pedidos.get(position).getNro_ped()));
+                  if (validarDespacho()) {
+                      if (guardarDespacho()) {
+                    //      Toast.makeText(getActivity(), "Existio un error al realizar la operacion!", Toast.LENGTH_SHORT).show();
+                    //  } else
+                     // {
 
-                    startActivity(intent);
+                 //         Toast.makeText(getActivity(), "La operacion se realizo con exito!", Toast.LENGTH_LONG).show();
+
+                       //   final Intent intent = new Intent(getActivity(), MapaActivity.class);
+                       //   intent.putExtra(Intent.EXTRA_TEXT, nro_ped);
+                       //   startActivity(intent);
+                      }
+                  }
 
                 }
+
+
             });
 
-*/
+
 
             return rootView;
         }
@@ -129,7 +190,8 @@ public class ArticulosActivity extends ActionBarActivity {
             @Override
             protected String[] doInBackground(Void... params) {
 
-                String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", "1", "12");
+                //String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", "1", "12");
+                String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", nro_ped, nro_bloque);
                 Log.v(LOG_TAG, resultString);
 
                 try {
@@ -151,12 +213,17 @@ public class ArticulosActivity extends ActionBarActivity {
                         break;
                     }
                     String aux[] = result.trim().split("\\|");
-                    articulos.add(new Articulo(aux[0],Integer.parseInt(aux[1]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),0));
+                    articulos.add(new Articulo(aux[0],Integer.parseInt(aux[1]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4])));
 
                     Log.v(LOG_TAG, "ESTO " + result);
                 }
                 Log.v(LOG_TAG, "ESTO TERMINO");
-                listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos));
+
+                articulo = new ArticuloAdapter(getActivity(), articulos,rootView);
+
+                //listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos));
+
+                listArticulos.setAdapter(articulo);
 
             }
         }
