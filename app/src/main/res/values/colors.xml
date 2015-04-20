@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="back_color">#ffefe2e2</color>
+    <color name="list_textcolor">#ffffff</color>
+    <color name="backcolor_list">#c60000</color>
+    <color name="list_textcolor_estado">#ffff00</color>
+</resources>
