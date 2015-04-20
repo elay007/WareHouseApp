@@ -4,4 +4,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_mapa">MapaActivity</string>
     <string name="title_activity_articulos">ArticulosActivity</string>
+    <string name="description_zoom_touch_close">Expanded image (touch to close)</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

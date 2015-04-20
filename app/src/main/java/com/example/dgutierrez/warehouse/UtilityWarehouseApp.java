@@ -185,16 +185,18 @@ public class UtilityWarehouseApp {
 
         final String LIST = "items";
         final String NRO_MOD = "NRO_MOD";
+        final String ESTADO = "ESTADO";
 
         JSONArray fixturesArray = jsonObject.getJSONArray(LIST);
         for (int i = 0; i < fixturesArray.length(); i++) {
-            String nroMod;
+            String nroMod, estado;
 
             JSONObject matchObject = fixturesArray.getJSONObject(i);
 
             nroMod = matchObject.getString(NRO_MOD);
+            estado = matchObject.getString(ESTADO);
 
-            String resultString = nroMod;
+            String resultString = new Formatter().format("%s|%s", nroMod, estado).toString();
             result.add(resultString);
 
         }
@@ -210,6 +212,7 @@ public class UtilityWarehouseApp {
         final String NRO_MOD = "NRO_MOD";
         final String CANT_STOCK = "CANT_STOCK";
         final String CANT_PED  = "CANT_PED";
+        final String CANT_DESP  = "CANT_DESP";
 
         JSONArray fixturesArray = jsonObject.getJSONArray(LIST);
 
@@ -218,6 +221,7 @@ public class UtilityWarehouseApp {
             String  nroMod;
             String  cantStock;
             String cantPed;
+            String cantDesp;
 
             JSONObject matchObject = fixturesArray.getJSONObject(i);
 
@@ -225,8 +229,9 @@ public class UtilityWarehouseApp {
             nroMod = matchObject.getString(NRO_MOD);
             cantStock = matchObject.getString(CANT_STOCK);
             cantPed = matchObject.getString(CANT_PED);
+            cantDesp = matchObject.getString(CANT_DESP);
 
-            String resultString = new Formatter().format("%s|%s|%s|%s", pkArticulo, nroMod, cantStock,cantPed).toString();
+            String resultString = new Formatter().format("%s|%s|%s|%s|%s", pkArticulo, nroMod, cantStock,cantPed,cantDesp).toString();
             result.add(resultString);
 
         }

@@ -1,8 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ArticulosActivity$PlaceholderFragment"
-    android:orientation="vertical">
+    android:id="@+id/layout_articulos">
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,6 +20,31 @@
             android:id="@+id/result_articulos"
             android:clickable="false"
             android:headerDividersEnabled="true" />
+
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/botones"
+        android:gravity="bottom|center">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_guardar"
+            android:src="@drawable/ic_action_save"
+            android:background="@drawable/custom_selector"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:contentDescription="@string/description_zoom_touch_close" />
+
+</FrameLayout>
