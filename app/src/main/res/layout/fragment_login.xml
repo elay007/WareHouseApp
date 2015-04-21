@@ -34,7 +34,9 @@
             android:background="@drawable/edittext_selector"
             android:layout_gravity="center_horizontal"
             android:maxLength="15"
-            android:hint="Usuario" />
+            android:hint="Usuario"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
             android:background="@drawable/edittext_selector"
             android:layout_gravity="center_horizontal"
             android:maxLength="15"
-            android:hint="Password" />
+            android:hint="Password"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="wrap_content"

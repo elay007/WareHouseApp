@@ -51,6 +51,7 @@ public class ArticuloAdapter extends BaseAdapter {
         int auxWidth;
         View listView;
         final int pos;
+        final  TextView tv_cant_desp;
 
         if (convertView == null) {
 
@@ -94,20 +95,23 @@ public class ArticuloAdapter extends BaseAdapter {
 
         tv_cant_ped.setText(Integer.toString(articulos.get(position).getCant_ped()));
 
-        final TextView tv_cant_desp = (TextView) listView.findViewById(R.id.lv_cant_desp);
+        tv_cant_desp = (TextView) listView.findViewById(R.id.lv_cant_desp);
 
         tv_cant_desp.setText(Integer.toString(articulos.get(position).getCant_desp()));
 
-        tv_cant_desp.addTextChangedListener(new TextWatcher(){
-            public void afterTextChanged(Editable s) {
-                if (!tv_cant_desp.getText().toString().equals(""))
-                {articulos.get(position).setCant_desp(Integer.parseInt(tv_cant_desp.getText().toString()));}
-                else
-                {articulos.get(position).setCant_desp(0);}
+        tv_cant_desp.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                {
+                    if (!tv_cant_desp.getText().toString().equals(""))
+                    {articulos.get(position).setCant_desp(Integer.parseInt(tv_cant_desp.getText().toString()));}
+                    else
+                    {articulos.get(position).setCant_desp(0);}
+                }
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
+
 
         IMG.setOnClickListener(new View.OnClickListener() {
             String s = articulos.get(pos).getPk_articulo();
@@ -120,8 +124,6 @@ public class ArticuloAdapter extends BaseAdapter {
 
             }
         });
-
-     //   mShortAnimationDuration = view_activity.getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         listView.setBackgroundResource(R.drawable.custom_selector);
 

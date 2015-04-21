@@ -80,6 +80,7 @@ public class ArticulosActivity extends ActionBarActivity {
 
         public PlaceholderFragment() {
         }
+        /*
         private void rellenarArticulos() {
 
             articulos.add(new Articulo("8534987",5,10,3,3));
@@ -88,7 +89,7 @@ public class ArticulosActivity extends ActionBarActivity {
             articulos.add(new Articulo("7105970",5,3,4,3));
             articulos.add(new Articulo("7105971",5,3,4,3));
         }
-
+        */
         public void updateResults() {
 
             Bundle extras = getActivity().getIntent().getExtras();

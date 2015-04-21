@@ -78,6 +78,7 @@ public class MyAsyncTask extends AsyncTask<String,Void,String>{
     protected void onPostExecute(String resul) {
         progressDialog.dismiss();
         final Intent intent = new Intent(context, MapaActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Intent.EXTRA_TEXT, nroPed);
         context.startActivity(intent);
 
