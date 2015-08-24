@@ -23,23 +23,6 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/botones"
-        android:gravity="bottom|center">
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_guardar"
-            android:src="@drawable/ic_action_save"
-            android:background="@drawable/custom_selector"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
-
-    </RelativeLayout>
-
     <ImageView
         android:id="@+id/expanded_image"
         android:layout_width="match_parent"

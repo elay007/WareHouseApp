@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 public class ArticulosActivity extends ActionBarActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class ArticulosActivity extends ActionBarActivity {
         actionBar.setSubtitle("Articulos");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -52,15 +55,42 @@ public class ArticulosActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+//        final GlobalClass globalVariable = (GlobalClass)  getApplicationContext();
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                Intent intent = new Intent(ArticulosActivity.this, MapaActivity.class);
+//                intent.putExtra(Intent.EXTRA_TEXT, globalVariable.getNroPed());
+                startActivity(intent);
+
+                return true;
+        }
+        return false;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+  //      final GlobalClass globalVariable = (GlobalClass)  getApplicationContext();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == android.R.id.home)
+        {
+            Intent intent = new Intent(ArticulosActivity.this, MapaActivity.class);
+
+   //         intent.putExtra(Intent.EXTRA_TEXT, globalVariable.getNroPed());
+
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,7 +106,6 @@ public class ArticulosActivity extends ActionBarActivity {
         String nro_ped,nro_bloque;
         View rootView;
         ArticuloAdapter articulo;
-        ImageButton boton_guardar;
 
         public PlaceholderFragment() {
         }
@@ -92,45 +121,20 @@ public class ArticulosActivity extends ActionBarActivity {
         */
         public void updateResults() {
 
-            Bundle extras = getActivity().getIntent().getExtras();
+       //     Bundle extras = getActivity().getIntent().getExtras();
 
-            nro_ped = extras.getString("NRO_PED");
-            nro_bloque = extras.getString("NRO_MOD");
+       //     nro_ped = extras.getString("NRO_PED");
+       //     nro_bloque = extras.getString("NRO_MOD");
+
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            nro_ped = globalVariable.getNroPed();
+            nro_bloque = globalVariable.getNroMod();
 
             GetResultTask task = new GetResultTask();
 
             task.execute();
 
-        }
-
-
-        public boolean validarDespacho()
-        {
-            for (int i = 0; i < articulos.size(); i++)
-            {
-                if (articulos.get(i).getCant_desp()>articulos.get(i).getCant_ped())
-                {
-
-                    Toast.makeText(getActivity(),"La cantidad despachada en  " + articulos.get(i).getPk_articulo() + " es mayor a la cantidad pedida!", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-            }
-            return true;
-        }
-
-
-        public boolean guardarDespacho()
-        {
-            for (int i = 0; i < articulos.size(); i++)
-            {
-//                Toast.makeText(getActivity(),articulos.get(i).getPk_articulo(), Toast.LENGTH_SHORT).show();
-
-                new MyAsyncTask(getActivity())
-                        .execute("POST", nro_ped, nro_bloque,articulos.get(i).getPk_articulo(),Integer.toString(articulos.get(i).getCant_desp()));
-
-            }
-            return true;
         }
 
         @Override
@@ -150,38 +154,32 @@ public class ArticulosActivity extends ActionBarActivity {
 
           //  rellenarArticulos();
 
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
 
             listArticulos = (ListView) rootView.findViewById(R.id.result_articulos);
 
-         //   listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos, rootView));
 
-            boton_guardar = (ImageButton) rootView.findViewById(R.id.btn_guardar);
+            listArticulos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v,
+                                        int position, long id) {
 
-            boton_guardar.setOnClickListener(new View.OnClickListener() {
+               //     Toast.makeText(getActivity(),globalVariable.getNroPed(), Toast.LENGTH_SHORT).show();
 
-                @Override
-                public void onClick(View v) {
+                    globalVariable.setPkArticulo(articulos.get(position).getPk_articulo());
 
-                  if (validarDespacho()) {
-                      if (guardarDespacho()) {
-                    //      Toast.makeText(getActivity(), "Existio un error al realizar la operacion!", Toast.LENGTH_SHORT).show();
-                    //  } else
-                     // {
+                    final Intent intent = new Intent(getActivity(), ArticuloTallaActivity.class);
 
-                 //         Toast.makeText(getActivity(), "La operacion se realizo con exito!", Toast.LENGTH_LONG).show();
+                    Bundle extras = new Bundle();
+                    extras.putString("NRO_PED",nro_ped);
+                    extras.putString("NRO_MOD",nro_bloque);
+                    extras.putString("PK_ARTICULO",articulos.get(position).getPk_articulo());
+                    intent.putExtras(extras);
 
-                       //   final Intent intent = new Intent(getActivity(), MapaActivity.class);
-                       //   intent.putExtra(Intent.EXTRA_TEXT, nro_ped);
-                       //   startActivity(intent);
-                      }
-                  }
+
+                    startActivity(intent);
 
                 }
-
-
             });
-
-
 
             return rootView;
         }
@@ -191,7 +189,6 @@ public class ArticulosActivity extends ActionBarActivity {
             @Override
             protected String[] doInBackground(Void... params) {
 
-                //String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", "1", "12");
                 String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", nro_ped, nro_bloque);
                 Log.v(LOG_TAG, resultString);
 
@@ -214,6 +211,7 @@ public class ArticulosActivity extends ActionBarActivity {
                         break;
                     }
                     String aux[] = result.trim().split("\\|");
+
                     articulos.add(new Articulo(aux[0],Integer.parseInt(aux[1]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4])));
 
                     Log.v(LOG_TAG, "ESTO " + result);
@@ -221,8 +219,6 @@ public class ArticulosActivity extends ActionBarActivity {
                 Log.v(LOG_TAG, "ESTO TERMINO");
 
                 articulo = new ArticuloAdapter(getActivity(), articulos,rootView);
-
-                //listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos));
 
                 listArticulos.setAdapter(articulo);
 

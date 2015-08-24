@@ -1,10 +1,13 @@
 package com.example.dgutierrez.warehouse;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -32,7 +37,9 @@ public class LoginActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
     }
 
 
@@ -62,20 +69,16 @@ public class LoginActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        private static final String LOG_TAG =  PlaceholderFragment.class.getSimpleName();
         Button boton_login;
         EditText edt_usuario,edt_password;
         TextView txv_mensaje;
+        String idUsuario, nombre, rol, login, pass, cad="DES";
+        int err;
+
+
 
         public PlaceholderFragment() {
-        }
-
-        public boolean validarUsuario(String usu, String pass)
-        {
-            if (usu.equals("admin") && pass.equals("123"))
-            {
-               return  true;
-            }
-            return false;
         }
 
         @Override
@@ -89,20 +92,13 @@ public class LoginActivity extends ActionBarActivity {
             txv_mensaje = (TextView) rootView.findViewById(R.id.txv_mensaje);
 
             boton_login.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
 
-                    if (validarUsuario(edt_usuario.getText().toString(),edt_password.getText().toString()))
-                    {
-                        txv_mensaje.setText("");
-                        final Intent intent = new Intent(getActivity(), PedidosActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                    {
-                        txv_mensaje.setText("La datos no son validos.");
-                    }
+                    login = edt_usuario.getText().toString();
+                    pass = edt_password.getText().toString();
+
+                    new GetResultTask().execute();
 
                 }
 
@@ -111,5 +107,84 @@ public class LoginActivity extends ActionBarActivity {
 
             return rootView;
         }
+
+        class GetResultTask extends AsyncTask<Void, Void, String []>
+        {
+            private ProgressDialog pDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                pDialog = new ProgressDialog(getActivity());
+                pDialog.setMessage("Intentando loguear...");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(true);
+                pDialog.show();
+            }
+
+            @Override
+            protected String[] doInBackground(Void... params)
+            {
+                String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("USUARIOS", "LOGIN", login, pass);
+                Log.v(LOG_TAG, resultString);
+
+                try
+                {
+                    //return UtilityWarehouseApp.parseLoginJson(resultString);
+                    for (String result : UtilityWarehouseApp.parseLoginJson(resultString)) {
+                        if (result == "No DATA") {
+                            break;
+                        }
+                        String aux[] = result.trim().split("\\|");
+
+                        idUsuario = aux[0];
+                        nombre = aux[1];
+                        rol = aux[2];
+
+                    }
+
+                    if(rol != null && !rol.isEmpty())
+                    {
+                        if (rol.equals("DES")) {
+                            final Intent intent = new Intent(getActivity(), PedidosActivity.class);
+                           // finish();
+                            startActivity(intent);
+                        }
+                        if (rol.equals("EMB")) {
+                            final Intent intent = new Intent(getActivity(), PedidosActivityB.class);
+                            intent.putExtra(Intent.EXTRA_TEXT, "EMBALADOR");
+                            // finish();
+                            startActivity(intent);
+                        }
+                    }
+                    else
+                    {
+                        err=0;
+                    }
+                    return null;
+
+                } catch (JSONException e)
+                {
+                    Log.e(LOG_TAG, "Error parsing" + e.getMessage(), e);
+                    e.printStackTrace();
+                    return new String[] {"No DATA"};
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String[] strings) {
+                pDialog.dismiss();
+/*
+                if (err==0)
+                {
+                    txv_mensaje.setText("La datos no son validos.");
+                }
+*/
+            }
+
+        }
     }
+
+
+
 }

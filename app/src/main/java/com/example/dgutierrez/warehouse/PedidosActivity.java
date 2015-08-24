@@ -1,5 +1,7 @@
 package com.example.dgutierrez.warehouse;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +19,7 @@ import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -43,9 +47,62 @@ public class PedidosActivity extends ActionBarActivity {
         actionBar.setSubtitle("Pedidos");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
+    public void showDialogClose() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PedidosActivity.this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Confirma Salir...");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Esta seguro de salir de la aplicacion?");
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.ic_action_warning);
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+                // Write your code here to invoke YES event
+                //Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("EXIT", true);
+                startActivity(intent);
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+               // Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+
+                    showDialogClose();
+
+                return true;
+        }
+        return false;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +121,10 @@ public class PedidosActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == android.R.id.home)
+        {
+            showDialogClose();
         }
 
         return super.onOptionsItemSelected(item);
@@ -123,9 +184,10 @@ public class PedidosActivity extends ActionBarActivity {
 
             pedidos = new ArrayList<Pedido>();
 
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
             //rellenarPedidos();
 
-            Log.v(LOG_TAG,"llenado pedidos");
 
             listPedidos = (ListView) rootView.findViewById(R.id.result_pedidos);
 
@@ -140,13 +202,15 @@ public class PedidosActivity extends ActionBarActivity {
                                         int position, long id) {
 
 
-
+                    globalVariable.setNroPed(Integer.toString(pedidos.get(position).getNro_ped()));
 
                     final Intent intent = new Intent(getActivity(), MapaActivity.class);
                     //intent.putExtra(TestConstants.SELCTED_SCENE_KEY, position);
 
 
                     intent.putExtra(Intent.EXTRA_TEXT, Integer.toString(pedidos.get(position).getNro_ped()));
+
+
 
                     startActivity(intent);
 

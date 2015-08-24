@@ -20,6 +20,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.util.Log;
 public class MyRestFulGP  {
 
     private final String HTTP_EVENT="http://manaco.com.bo/ServerJSON/apirest.php";
+    //private final String HTTP_EVENT="http://10.0.8.24/ServerJSON/apirest.php";
     private HttpClient httpclient;
 
     /**
@@ -63,7 +65,7 @@ public class MyRestFulGP  {
      * @throws ClientProtocolException
      * @throws JSONException
      * */
-    public String addEventGet(String nroped, String nromod, String articulo, String cantdesp) throws ClientProtocolException, IOException, JSONException
+    public String addEventGet(String tipo, String nroped, String nromod, String articulo, String cantdesp) throws ClientProtocolException, IOException, JSONException
     {
         httpclient = new DefaultHttpClient();
         //los datos a enviar
@@ -127,7 +129,7 @@ public class MyRestFulGP  {
      * @throws ClientProtocolException
      * @throws JSONException
      * */
-    public String addEventPost(String nroped, String nromod, String articulo, String cantdesp) throws ClientProtocolException, IOException, JSONException
+    public String addEventPost(String tipo, String nroped, String nromod, String articulo, String cantdesp, String secuencia) throws ClientProtocolException, IOException, JSONException
     {
         httpclient = new DefaultHttpClient();
         String uuid = UUID.randomUUID().toString();
@@ -136,10 +138,38 @@ public class MyRestFulGP  {
         httppost.addHeader("Content-Type", "application/json");
         //forma el JSON y tipo de contenido
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nroped", nroped );
-        jsonObject.put("nromod",nromod );
-        jsonObject.put("articulo",articulo );
-        jsonObject.put("cantdesp", cantdesp );
+        if(tipo == "ARTICULO") {
+            jsonObject.put("tipo", tipo);
+            jsonObject.put("nroped", nroped);
+            jsonObject.put("nromod", nromod);
+            jsonObject.put("articulo", articulo);
+            jsonObject.put("cantdesp", cantdesp);
+        }
+
+        if(tipo == "BULTO" || tipo == "CONFIRMAR_PEDIDO") {
+            jsonObject.put("tipo", tipo);
+            jsonObject.put("nroped", nroped);
+        }
+
+        if(tipo == "DELETE_BULTO") {
+            String aux[] =  nroped.trim().split("\\|");
+            String nBulto = aux[0];
+            String nPed = aux[1];
+            jsonObject.put("tipo", tipo);
+            jsonObject.put("nrobulto", nBulto);
+        }
+
+        if(tipo == "ARTICULO_BULTO") {
+            String aux[] =  nroped.trim().split("\\|");
+            String nBulto = aux[0];
+            String nPed = aux[1];
+            jsonObject.put("tipo", tipo);
+            jsonObject.put("nrobulto", nBulto);
+            jsonObject.put("nromod", nromod);
+            jsonObject.put("secuencia", secuencia);
+            jsonObject.put("articulo", articulo);
+            jsonObject.put("cantidad", cantdesp);
+        }
 
         StringEntity stringEntity = new StringEntity( jsonObject.toString());
         stringEntity.setContentType( (Header) new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -148,15 +178,21 @@ public class MyRestFulGP  {
         HttpResponse response = httpclient.execute(httppost);
         //obtiene la respuesta y transorma a objeto JSON
         String jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
+        jsonResult = jsonResult.substring(jsonResult.indexOf("{"), jsonResult.lastIndexOf("}") + 1);
         JSONObject object = new JSONObject(jsonResult);
         Log.i("jsonResult",jsonResult);
-        if( object.getString("Result").equals("200"))
+        if( object.getString("status").equals("1"))
         {
-            return "Petición POST: Exito";
+            if (tipo == "BULTO" && object.getString("status").equals("1"))
+            {
+                return object.getString("seq");
+            }
         }
-        return "Petición POST: Fracaso";
+        return object.getString("status");
     }
 
+    //{"status":1,"msg":"Done User added!","seq":"9"}
+    //﻿﻿{"status":1,"msg":"Done User added!","seq":"9"}
     /**
      * Transforma el InputStream en un String
      * @return StringBuilder
@@ -180,4 +216,6 @@ public class MyRestFulGP  {
 
         return stringBuilder;
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class MapaActivity extends ActionBarActivity {
         actionBar.setSubtitle("Mapa");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -46,6 +49,20 @@ public class MapaActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_mapa, menu);
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+                startActivity(intent);
+
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -59,6 +76,11 @@ public class MapaActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == android.R.id.home)
+        {
+            final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -71,6 +93,7 @@ public class MapaActivity extends ActionBarActivity {
         private static final String LOG_TAG =  PlaceholderFragment.class.getSimpleName();
         private String numPedido;
         GridView gridView;
+
         static final Bloque[] bloques = new Bloque[]
                 {new Bloque("","N",1,""),new Bloque("A","N",2,""),new Bloque("B","N",3,""),new Bloque("C","N",4,""),
                         new Bloque("W","N",5,""),new Bloque("","N",6,"1"),new Bloque("","N",7,"2"),new Bloque("","N",8,"3"),
@@ -82,13 +105,17 @@ public class MapaActivity extends ActionBarActivity {
         }
 
         public void updateResults() {
-            String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            numPedido = result;
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+//            String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+//            numPedido = result;
+            numPedido = globalVariable.getNroPed();
             GetResultTask task = new GetResultTask();
 
             task.execute();
 
         }
+
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -103,20 +130,21 @@ public class MapaActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_mapa, container, false);
 
 
-            String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
 
-            numPedido = result;
 
-            detailsText.setText(result);
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            detailsText.setText(numPedido);
 
             gridView = (GridView) rootView.findViewById(R.id.gridview);
 
-            //gridView.setAdapter(new MapAdapter(this.getActivity(), bloques));
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
+
+                    globalVariable.setNroMod(bloques[position].getNro());
 
                     final Intent intent = new Intent(v.getContext(), ArticulosActivity.class);
 
