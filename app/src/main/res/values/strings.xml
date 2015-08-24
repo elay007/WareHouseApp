@@ -4,4 +4,23 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_mapa">MapaActivity</string>
     <string name="title_activity_articulos">ArticulosActivity</string>
+    <string name="description_zoom_touch_close">Expanded image (touch to close)</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_articulo_talla">ArticuloTallaActivity</string>
+    <string name="title_activity_bultos">BultosActivity</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_add">Add</string>
+    <string name="title_activity_articulos_bulto">ArticulosBultoActivity</string>
+    <string name="label_scan">Escanear</string>
+    <string name="title_activity_continuous_capture">ContinuousCaptureActivity</string>
+    <string name="label_save">Guardar</string>
+    <string name="menu_add">Adicionar</string>
+    <string name="menu_edit">Editar</string>
+    <string name="menu_delete">Eliminar</string>
+    <string name="success">Menu</string>
+    <string name="item_removed">Estas seguro de eliminar el Pedido ?</string>
+
 </resources>

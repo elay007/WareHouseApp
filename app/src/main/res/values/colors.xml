@@ -4,4 +4,13 @@
     <color name="list_textcolor">#ffffff</color>
     <color name="backcolor_list">#c60000</color>
     <color name="list_textcolor_estado">#ffff00</color>
+    <color name="text_color">#c60000</color>
+
+    <color name="cell_grid_normal">#FFA3A9</color>
+    <color name="cell_grid_selec">#FFF31C</color>
+    <color name="cell_grid_mod">#00FF00</color>
+
+    <color name="black_overlay">#66000000</color>
+
+
 </resources>

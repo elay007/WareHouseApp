@@ -5,13 +5,14 @@ package com.example.dgutierrez.warehouse;
  */
 public class Bloque
 {
-    private String orden, seleccionado;
+    private String orden, seleccionado ,nro;
     private int id;
 
-    public Bloque(String ord, String seleccionado, int id) {
+    public Bloque(String ord, String seleccionado, int id, String n) {
         this.orden= ord;
         this.seleccionado= seleccionado;
         this.id=id;
+        this.nro=n;
 
     }
 
@@ -27,6 +28,11 @@ public class Bloque
         return id;
     }
 
+    public String getNro() {
+        return nro;
+    }
+
+
     public void setSeleccionado(String sel) {
         this.seleccionado= sel;
     }
@@ -35,5 +41,8 @@ public class Bloque
         this.orden= ord;
     }
 
+    public void setNro(String n) {
+        this.nro= n;
+    }
 
 }

@@ -34,56 +34,48 @@ public class MapAdapter extends BaseAdapter {
 
             gridView = inflater.inflate(R.layout.bloque, null);
 
-            TextView title_textView = (TextView) gridView.findViewById(R.id.title_pedido);
-
-
-            TextView textView = (TextView) gridView.findViewById(R.id.label);
-
-            textView.setText(bloques[position].toString());
-
-
-            int height = gridView.getHeight();
-
-            textView.setHeight(115);
-            textView.setWidth(250);
-
-
-            if (position==0 || position==1 || position==2 || position==3)
-            {
-                textView.setBackgroundColor(Color.TRANSPARENT);
-                textView.setGravity(Gravity.BOTTOM|Gravity.CENTER);
-                textView.setHeight(65);
-            }
-            else if (position==4 || position==8 || position==12 || position==16)
-            {
-                textView.setBackgroundColor(Color.TRANSPARENT);
-                textView.setGravity(Gravity.CENTER_VERTICAL|Gravity.RIGHT);
-            }
-            else
-            {
-
-                if (bloques[position].getSeleccionado()=="S")
-                    textView.setBackgroundColor(Color.argb(255,255,243,28));
-                else
-                    textView.setBackgroundColor(Color.argb(255,255,163,169));
-            }
-           // ImageView flag = (ImageView) gridView .findViewById(R.id.flag);
-
-  //          String mobile = bloques[position];
-/*
-            if (mobile.equals("Greece")) {
-                flag.setImageResource(R.drawable.greekflag);
-            } else if (mobile.equals("Germany")) {
-                flag.setImageResource(R.drawable.germanflag);
-            } else if (mobile.equals("Italy")) {
-                flag.setImageResource(R.drawable.italianflag);
-            } else {
-                flag.setImageResource(R.drawable.britishflag);
-            }
-*/
-        } else {
+        } else
+        {
             gridView = (View) convertView;
         }
+
+        TextView title_textView = (TextView) gridView.findViewById(R.id.title_pedido);
+
+
+        TextView textView = (TextView) gridView.findViewById(R.id.label);
+
+        textView.setText(bloques[position].toString());
+
+
+        int height = gridView.getHeight();
+
+        textView.setHeight(115);
+        textView.setWidth(250);
+
+
+        if (position==0 || position==1 || position==2 || position==3)
+        {
+            textView.setBackgroundColor(Color.TRANSPARENT);
+            textView.setGravity(Gravity.BOTTOM|Gravity.CENTER);
+            textView.setHeight(65);
+        }
+        else if (position==4 || position==8 || position==12 || position==16)
+        {
+            textView.setBackgroundColor(Color.TRANSPARENT);
+            textView.setGravity(Gravity.CENTER_VERTICAL|Gravity.RIGHT);
+        }
+        else
+        {
+
+            if (bloques[position].getSeleccionado().equals("S"))
+            { textView.setBackgroundColor(Color.argb(255,255,243,28)); }
+            else if (bloques[position].getSeleccionado().equals("M"))
+            {   textView.setBackgroundColor(Color.argb(255,0,255,0)); }
+            else
+            {    textView.setBackgroundColor(Color.argb(255,255,163,169));}
+        }
+
+        //gridView.setBackgroundResource(R.drawable.custom_selector_grid);
 
         return gridView;
     }
@@ -101,6 +93,19 @@ public class MapAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        if (position==0 || position==1 || position==2 || position==3 || position==4 || position==8 || position==12 || position==16)
+        { return false;
+        }
+        else if (bloques[position].getSeleccionado().equals("N"))
+        {
+           return false;
+        }
+        else
+        { return super.isEnabled(position);}
     }
 
 }
