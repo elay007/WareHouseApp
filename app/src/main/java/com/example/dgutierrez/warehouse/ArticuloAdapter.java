@@ -98,7 +98,11 @@ public class ArticuloAdapter extends BaseAdapter {
         tv_cant_desp = (TextView) listView.findViewById(R.id.lv_cant_desp);
 
         tv_cant_desp.setText(Integer.toString(articulos.get(position).getCant_desp()));
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> Version-4
         tv_cant_desp.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             public void onFocusChange(View v, boolean hasFocus) {
@@ -111,7 +115,11 @@ public class ArticuloAdapter extends BaseAdapter {
                 }
             }
         });
+<<<<<<< HEAD
 
+=======
+*/
+>>>>>>> Version-4
 
         IMG.setOnClickListener(new View.OnClickListener() {
             String s = articulos.get(pos).getPk_articulo();

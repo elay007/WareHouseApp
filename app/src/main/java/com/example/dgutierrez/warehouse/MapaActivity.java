@@ -7,6 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+import android.view.KeyEvent;
+>>>>>>> Version-4
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +19,10 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.GridView;
+<<<<<<< HEAD
+=======
+import android.widget.ImageButton;
+>>>>>>> Version-4
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +45,10 @@ public class MapaActivity extends ActionBarActivity {
         actionBar.setSubtitle("Mapa");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+<<<<<<< HEAD
+=======
+        actionBar.setDisplayHomeAsUpEnabled(true);
+>>>>>>> Version-4
 
     }
 
@@ -49,6 +61,23 @@ public class MapaActivity extends ActionBarActivity {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+                startActivity(intent);
+
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+>>>>>>> Version-4
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -59,6 +88,14 @@ public class MapaActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+<<<<<<< HEAD
+=======
+        else if (id == android.R.id.home)
+        {
+            final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+            startActivity(intent);
+        }
+>>>>>>> Version-4
 
         return super.onOptionsItemSelected(item);
     }
@@ -71,6 +108,10 @@ public class MapaActivity extends ActionBarActivity {
         private static final String LOG_TAG =  PlaceholderFragment.class.getSimpleName();
         private String numPedido;
         GridView gridView;
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
         static final Bloque[] bloques = new Bloque[]
                 {new Bloque("","N",1,""),new Bloque("A","N",2,""),new Bloque("B","N",3,""),new Bloque("C","N",4,""),
                         new Bloque("W","N",5,""),new Bloque("","N",6,"1"),new Bloque("","N",7,"2"),new Bloque("","N",8,"3"),
@@ -82,14 +123,26 @@ public class MapaActivity extends ActionBarActivity {
         }
 
         public void updateResults() {
+<<<<<<< HEAD
             String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             numPedido = result;
+=======
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+//            String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+//            numPedido = result;
+            numPedido = globalVariable.getNroPed();
+>>>>>>> Version-4
             GetResultTask task = new GetResultTask();
 
             task.execute();
 
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -103,6 +156,7 @@ public class MapaActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_mapa, container, false);
 
 
+<<<<<<< HEAD
             String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
 
@@ -113,11 +167,27 @@ public class MapaActivity extends ActionBarActivity {
             gridView = (GridView) rootView.findViewById(R.id.gridview);
 
             //gridView.setAdapter(new MapAdapter(this.getActivity(), bloques));
+=======
+            TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
+
+
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            detailsText.setText(numPedido);
+
+            gridView = (GridView) rootView.findViewById(R.id.gridview);
+
+>>>>>>> Version-4
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
 
+<<<<<<< HEAD
+=======
+                    globalVariable.setNroMod(bloques[position].getNro());
+
+>>>>>>> Version-4
                     final Intent intent = new Intent(v.getContext(), ArticulosActivity.class);
 
                     Bundle extras = new Bundle();

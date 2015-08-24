@@ -7,6 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+import android.view.KeyEvent;
+>>>>>>> Version-4
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +30,10 @@ import java.util.ArrayList;
 
 public class ArticulosActivity extends ActionBarActivity {
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +48,10 @@ public class ArticulosActivity extends ActionBarActivity {
         actionBar.setSubtitle("Articulos");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+<<<<<<< HEAD
+=======
+        actionBar.setDisplayHomeAsUpEnabled(true);
+>>>>>>> Version-4
 
     }
 
@@ -52,16 +64,52 @@ public class ArticulosActivity extends ActionBarActivity {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+//        final GlobalClass globalVariable = (GlobalClass)  getApplicationContext();
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                Intent intent = new Intent(ArticulosActivity.this, MapaActivity.class);
+//                intent.putExtra(Intent.EXTRA_TEXT, globalVariable.getNroPed());
+                startActivity(intent);
+
+                return true;
+        }
+        return false;
+    }
+
+
+    @Override
+>>>>>>> Version-4
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+<<<<<<< HEAD
+=======
+  //      final GlobalClass globalVariable = (GlobalClass)  getApplicationContext();
+>>>>>>> Version-4
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
+<<<<<<< HEAD
+=======
+        else if (id == android.R.id.home)
+        {
+            Intent intent = new Intent(ArticulosActivity.this, MapaActivity.class);
+
+   //         intent.putExtra(Intent.EXTRA_TEXT, globalVariable.getNroPed());
+
+            startActivity(intent);
+        }
+>>>>>>> Version-4
 
         return super.onOptionsItemSelected(item);
     }
@@ -76,7 +124,10 @@ public class ArticulosActivity extends ActionBarActivity {
         String nro_ped,nro_bloque;
         View rootView;
         ArticuloAdapter articulo;
+<<<<<<< HEAD
         ImageButton boton_guardar;
+=======
+>>>>>>> Version-4
 
         public PlaceholderFragment() {
         }
@@ -92,6 +143,7 @@ public class ArticulosActivity extends ActionBarActivity {
         */
         public void updateResults() {
 
+<<<<<<< HEAD
             Bundle extras = getActivity().getIntent().getExtras();
 
             nro_ped = extras.getString("NRO_PED");
@@ -131,6 +183,22 @@ public class ArticulosActivity extends ActionBarActivity {
 
             }
             return true;
+=======
+       //     Bundle extras = getActivity().getIntent().getExtras();
+
+       //     nro_ped = extras.getString("NRO_PED");
+       //     nro_bloque = extras.getString("NRO_MOD");
+
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            nro_ped = globalVariable.getNroPed();
+            nro_bloque = globalVariable.getNroMod();
+
+            GetResultTask task = new GetResultTask();
+
+            task.execute();
+
+>>>>>>> Version-4
         }
 
         @Override
@@ -150,6 +218,7 @@ public class ArticulosActivity extends ActionBarActivity {
 
           //  rellenarArticulos();
 
+<<<<<<< HEAD
 
             listArticulos = (ListView) rootView.findViewById(R.id.result_articulos);
 
@@ -183,6 +252,35 @@ public class ArticulosActivity extends ActionBarActivity {
 
 
 
+=======
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            listArticulos = (ListView) rootView.findViewById(R.id.result_articulos);
+
+
+            listArticulos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v,
+                                        int position, long id) {
+
+               //     Toast.makeText(getActivity(),globalVariable.getNroPed(), Toast.LENGTH_SHORT).show();
+
+                    globalVariable.setPkArticulo(articulos.get(position).getPk_articulo());
+
+                    final Intent intent = new Intent(getActivity(), ArticuloTallaActivity.class);
+
+                    Bundle extras = new Bundle();
+                    extras.putString("NRO_PED",nro_ped);
+                    extras.putString("NRO_MOD",nro_bloque);
+                    extras.putString("PK_ARTICULO",articulos.get(position).getPk_articulo());
+                    intent.putExtras(extras);
+
+
+                    startActivity(intent);
+
+                }
+            });
+
+>>>>>>> Version-4
             return rootView;
         }
 
@@ -191,7 +289,10 @@ public class ArticulosActivity extends ActionBarActivity {
             @Override
             protected String[] doInBackground(Void... params) {
 
+<<<<<<< HEAD
                 //String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", "1", "12");
+=======
+>>>>>>> Version-4
                 String resultString = UtilityWarehouseApp.getJsonStringFromNetwork("DETALLES", "PED_ARTICULOS", nro_ped, nro_bloque);
                 Log.v(LOG_TAG, resultString);
 
@@ -214,6 +315,10 @@ public class ArticulosActivity extends ActionBarActivity {
                         break;
                     }
                     String aux[] = result.trim().split("\\|");
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
                     articulos.add(new Articulo(aux[0],Integer.parseInt(aux[1]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4])));
 
                     Log.v(LOG_TAG, "ESTO " + result);
@@ -222,8 +327,11 @@ public class ArticulosActivity extends ActionBarActivity {
 
                 articulo = new ArticuloAdapter(getActivity(), articulos,rootView);
 
+<<<<<<< HEAD
                 //listArticulos.setAdapter(new ArticuloAdapter(getActivity(), articulos));
 
+=======
+>>>>>>> Version-4
                 listArticulos.setAdapter(articulo);
 
             }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lv_talla"
+        android:paddingLeft="7dp"
+        android:textColor="@color/list_textcolor">
+    </TextView>
+
+    <TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lv_title_talla_ped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedido: "
+        android:textColor="@color/list_textcolor"
+        android:layout_marginLeft="7dp"
+        android:layout_below="@+id/lv_talla"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lv_talla_ped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/lv_title_talla_ped"
+        android:layout_below="@+id/lv_talla"
+        android:text="TextView"
+        android:textColor="@color/list_textcolor_estado"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_talla_desp"
+        android:enabled="true"
+        android:ems="3"
+        android:inputType="number"
+        android:background="@drawable/edittext_selector"
+        android:maxLength="4"
+        android:layout_marginLeft="7dp"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

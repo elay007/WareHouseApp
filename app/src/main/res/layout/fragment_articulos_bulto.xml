@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.dgutierrez.warehouse.ArticulosBultoActivity$PlaceholderFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/cuerpo_articulos_bulto"
+        android:focusableInTouchMode="true"
+        android:background="#ffefe2e2"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/result_articulos_bulto"
+            android:clickable="false"
+            android:longClickable="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/scan_articulos_bulto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_scan"
+            android:onClick="scanContinuous"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="top" />
+
+        <Button
+            android:id="@+id/save_articulos_bulto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_save"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="top" />
+
+        <Button
+            android:id="@+id/cancel_articulos_bulto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_cancel"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="top" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

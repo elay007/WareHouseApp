@@ -1,0 +1,78 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ArticuloDetalleActivity$PlaceholderFragment"
+    android:id="@+id/layout_detalle">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/cuerpo"
+        android:focusableInTouchMode="true"
+        android:background="#ffefe2e2"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+<!--
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_tallas"
+            android:clickable="false"
+            android:headerDividersEnabled="true" />
+-->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/t_pk_articulo"
+            android:textColor="@color/list_textcolor_estado"
+            android:gravity="center_horizontal"
+            android:background="@color/text_color"/>
+
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/result_tallas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="90dp"
+            android:numColumns="2"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:padding="3dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/botones"
+        android:gravity="bottom|center">
+
+        <ImageButton
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_cancelar"
+            android:src="@drawable/ic_action_cancel"
+            android:background="@drawable/custom_selector"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+        <ImageButton
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_cancelar"
+            android:id="@+id/btn_guardar"
+            android:src="@drawable/ic_action_save"
+            android:background="@drawable/custom_selector"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
