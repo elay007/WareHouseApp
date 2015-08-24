@@ -7,6 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+import android.view.KeyEvent;
+>>>>>>> Version-4
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +19,10 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.GridView;
+<<<<<<< HEAD
+=======
+import android.widget.ImageButton;
+>>>>>>> Version-4
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +45,10 @@ public class MapaActivity extends ActionBarActivity {
         actionBar.setSubtitle("Mapa");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+<<<<<<< HEAD
+=======
+        actionBar.setDisplayHomeAsUpEnabled(true);
+>>>>>>> Version-4
 
     }
 
@@ -49,6 +61,23 @@ public class MapaActivity extends ActionBarActivity {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+                startActivity(intent);
+
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+>>>>>>> Version-4
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -59,6 +88,14 @@ public class MapaActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+<<<<<<< HEAD
+=======
+        else if (id == android.R.id.home)
+        {
+            final Intent intent = new Intent(MapaActivity.this, PedidosActivity.class);
+            startActivity(intent);
+        }
+>>>>>>> Version-4
 
         return super.onOptionsItemSelected(item);
     }
@@ -71,25 +108,41 @@ public class MapaActivity extends ActionBarActivity {
         private static final String LOG_TAG =  PlaceholderFragment.class.getSimpleName();
         private String numPedido;
         GridView gridView;
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
         static final Bloque[] bloques = new Bloque[]
-                {new Bloque("","N",1),new Bloque("A","N",2),new Bloque("B","N",3),new Bloque("C","N",4),
-                        new Bloque("W","N",4),new Bloque("","N",5),new Bloque("","N",6),new Bloque("","N",7),
-                        new Bloque("X","N",8),new Bloque("","N",9),new Bloque("","N",10),new Bloque("","N",11),
-                        new Bloque("Y","N",12),new Bloque("","N",13),new Bloque("","N",14),new Bloque("","N",15),
-                        new Bloque("Z","N",16),new Bloque("","N",17),new Bloque("","N",18),new Bloque("","N",19)};
+                {new Bloque("","N",1,""),new Bloque("A","N",2,""),new Bloque("B","N",3,""),new Bloque("C","N",4,""),
+                        new Bloque("W","N",5,""),new Bloque("","N",6,"1"),new Bloque("","N",7,"2"),new Bloque("","N",8,"3"),
+                        new Bloque("X","N",9,""),new Bloque("","N",10,"4"),new Bloque("","N",11,"5"),new Bloque("","N",12,"6"),
+                        new Bloque("Y","N",13,""),new Bloque("","N",14,"7"),new Bloque("","N",15,"8"),new Bloque("","N",16,"9"),
+                        new Bloque("Z","N",17,""),new Bloque("","N",18,"10"),new Bloque("","N",19,"11"),new Bloque("","N",20,"12")};
 
         public PlaceholderFragment() {
         }
 
         public void updateResults() {
+<<<<<<< HEAD
             String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             numPedido = result;
+=======
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+//            String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+//            numPedido = result;
+            numPedido = globalVariable.getNroPed();
+>>>>>>> Version-4
             GetResultTask task = new GetResultTask();
 
             task.execute();
 
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -103,8 +156,9 @@ public class MapaActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_mapa, container, false);
 
 
+<<<<<<< HEAD
             String result = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            TextView detailsText = (TextView)rootView.findViewById(R.id.title_pedido);
+            TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
 
             numPedido = result;
 
@@ -113,18 +167,34 @@ public class MapaActivity extends ActionBarActivity {
             gridView = (GridView) rootView.findViewById(R.id.gridview);
 
             //gridView.setAdapter(new MapAdapter(this.getActivity(), bloques));
+=======
+            TextView detailsText = (TextView)rootView.findViewById(R.id.t_nro_pedido);
+
+
+            final GlobalClass globalVariable = (GlobalClass)  getActivity().getApplicationContext();
+
+            detailsText.setText(numPedido);
+
+            gridView = (GridView) rootView.findViewById(R.id.gridview);
+
+>>>>>>> Version-4
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
 
-                    //Toast.makeText(
-                    //        getApplicationContext(),
-                    //        ((TextView) v.findViewById(R.id.label)).getText(), Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+=======
+                    globalVariable.setNroMod(bloques[position].getNro());
 
+>>>>>>> Version-4
                     final Intent intent = new Intent(v.getContext(), ArticulosActivity.class);
-                 //   intent.putExtra("NRO_PED", "2345");
-                 //   intent.putExtra("NRO_MOD", "5");
+
+                    Bundle extras = new Bundle();
+                    extras.putString("NRO_PED",numPedido);
+                    extras.putString("NRO_MOD",bloques[position].getNro());
+                    intent.putExtras(extras);
+
                     startActivity(intent);
 
                 }
@@ -161,10 +231,12 @@ public class MapaActivity extends ActionBarActivity {
                     {
                         break;
                     }
+                    String aux[] = result.trim().split("\\|");
+
                     orden++;
-                    double pos = Double.parseDouble(result);
+                    double pos = Double.parseDouble(aux[0]);
                     int posMapa = (int)(3.0 + Math.ceil(pos / 3.0) + pos);
-                    bloques[posMapa] = new Bloque(Integer.toString(orden),"S",posMapa);
+                    bloques[posMapa] = new Bloque(Integer.toString(orden),aux[1],posMapa,aux[0]);
 
                     Log.v(LOG_TAG,"ESTO "+result);
                 }
@@ -178,7 +250,7 @@ public class MapaActivity extends ActionBarActivity {
                 for (int i = 1; i < 13; i++) {
                     double pos = (double)(i);
                     int posMapa = (int)(3.0 + Math.ceil(pos / 3.0) + pos);
-                    bloques[posMapa] = new Bloque("","N",i);
+                    bloques[posMapa] = new Bloque("","N",i,Integer.toString(i));
                 }
             }
         }

@@ -3,23 +3,37 @@
     package="com.example.dgutierrez.warehouse" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+<<<<<<< HEAD
+=======
+        android:name=".GlobalClass"
+>>>>>>> Version-4
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_action_logo"
         android:label="@string/app_name" >
         <activity
             android:name=".PedidosActivity"
             android:label="@string/app_name"
+<<<<<<< HEAD
+=======
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Warehouse" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PedidosActivityB"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+>>>>>>> Version-4
+            android:theme="@style/Theme.Warehouse" >
         </activity>
         <activity
             android:name=".MapaActivity"
-            android:label="@string/title_activity_mapa"
+            android:label="@string/app_name"
+<<<<<<< HEAD
+=======
+            android:screenOrientation="portrait"
+>>>>>>> Version-4
             android:parentActivityName=".PedidosActivity"
             android:theme="@style/Theme.Warehouse" >
             <meta-data
@@ -28,13 +42,85 @@
         </activity>
         <activity
             android:name=".ArticulosActivity"
-            android:label="@string/title_activity_articulos"
+            android:label="@string/app_name"
+<<<<<<< HEAD
+=======
+            android:screenOrientation="portrait"
+>>>>>>> Version-4
             android:parentActivityName=".MapaActivity"
-            android:theme="@style/Theme.Warehouse">
+            android:theme="@style/Theme.Warehouse" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dgutierrez.warehouse.MapaActivity" />
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+<<<<<<< HEAD
+            android:theme="@style/Theme.Warehouse">
+=======
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Warehouse" >
+>>>>>>> Version-4
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+<<<<<<< HEAD
+=======
+        </activity>
+        <activity
+            android:name=".ArticuloTallaActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ArticulosActivity"
+            android:theme="@style/Theme.Warehouse" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dgutierrez.warehouse.ArticulosActivity" />
+        </activity>
+        <activity
+            android:name=".BultosActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".PedidosActivityB"
+            android:theme="@style/Theme.Warehouse" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dgutierrez.warehouse.PedidosActivityB" />
+        </activity>
+        <activity
+            android:name=".ArticulosBultoActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".BultosActivity"
+            android:theme="@style/Theme.Warehouse" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dgutierrez.warehouse.BultosActivity" />
+        </activity>
+        <activity
+            android:name=".ContinuousCaptureActivity"
+            android:label="@string/title_activity_continuous_capture"
+            android:parentActivityName=".ArticulosBultoActivity"
+            android:theme="@style/Theme.Warehouse">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dgutierrez.warehouse.ArticulosBultoActivity" />
+        </activity>
+
+        <activity android:name=".CustomCaptureActivity"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+>>>>>>> Version-4
+
+        </activity>
     </application>
 
 </manifest>
+<<<<<<< HEAD
+=======
+
+>>>>>>> Version-4

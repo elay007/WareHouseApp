@@ -107,6 +107,7 @@
       <Port>5050</Port>
     </configuration>
   </component>
+<<<<<<< HEAD
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
@@ -123,5 +124,7 @@
       </state>
     </states>
   </component>
+=======
+>>>>>>> Version-4
 </project>
 

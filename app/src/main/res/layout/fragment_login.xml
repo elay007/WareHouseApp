@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<<<<<<< HEAD
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+=======
+    android:layout_height="match_parent"
+>>>>>>> Version-4
+    tools:context="com.example.dgutierrez.warehouse.LoginActivity$PlaceholderFragment"
+    android:background="@drawable/ab_solid_warehouse">
+
+    <ImageView
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_logo"
+<<<<<<< HEAD
+        android:src="@drawable/logo_manaco" />
+=======
+        android:src="@drawable/logo_manaco"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"/>
+>>>>>>> Version-4
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_logo2"
+        android:layout_gravity="center"
+<<<<<<< HEAD
+        android:paddingBottom="40dp"
+        android:src="@drawable/logo_inicio" />
+=======
+        android:paddingBottom="100dp"
+        android:src="@drawable/logo_warehouse" />
+>>>>>>> Version-4
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/edt_usuario"
+            android:background="@drawable/edittext_selector"
+            android:layout_gravity="center_horizontal"
+            android:maxLength="15"
+            android:hint="Usuario"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/edt_password"
+            android:background="@drawable/edittext_selector"
+            android:layout_gravity="center_horizontal"
+            android:maxLength="15"
+            android:hint="Password"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/txv_mensaje"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/list_textcolor" />
+
+        <Button
+<<<<<<< HEAD
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/btn_login"
+            android:layout_gravity="center_horizontal" />
+=======
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/btn_login"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/backcolor_list"
+            android:textColor="@color/list_textcolor"/>
+>>>>>>> Version-4
+    </LinearLayout>
+
+</FrameLayout>
